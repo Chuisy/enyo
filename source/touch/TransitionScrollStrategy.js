@@ -149,7 +149,7 @@ enyo.kind({
 	calcAutoScrolling: function() {
 		var b = this.getScrollBounds();
 		if(this.vertical) {
-			this.scrollVertical = b.height > b.clientHeight;
+			this.scrollVertical = true;
 		}
 		if(this.horizontal) {
 			this.scrollHorizontal = b.width > b.clientWidth;
@@ -188,7 +188,7 @@ enyo.kind({
 		};
 	},
 	mousewheel: function(inSender, e) {
-		if (!this.dragging && this.useMouseWheel) {
+		if (!this.dragging) {
 			this.calcBoundaries();
 			this.syncScrollMath();
 			this.stabilize();
@@ -555,10 +555,16 @@ enyo.kind({
 	// stops scrolling
 	resetCSSTranslationVals: function() {
 		var prop = enyo.dom.getCssTransformProp();
-		var transformStyle = window.getComputedStyle(this.$.client.node,null).getPropertyValue(prop).split('(')[1].split(')')[0].split(',');
+		var propValue = window.getComputedStyle(this.$.client.node,null).getPropertyValue(prop);
 		this.applyTransition("none");
-		this.scrollLeft = -1*transformStyle[4];
-		this.scrollTop = -1*transformStyle[5];
+		if (propValue && propValue != "none") {
+			var transformStyle = propValue.split('(')[1].split(')')[0].split(',');
+			this.scrollLeft = -1*transformStyle[4];
+			this.scrollTop = -1*transformStyle[5];
+		} else {
+			this.scrollLeft = 0;
+			this.scrollTop = 0;
+		}
 		this.effectScroll();
 	},
 	// Figure how far into the overscroll region we should go before bouncing back
