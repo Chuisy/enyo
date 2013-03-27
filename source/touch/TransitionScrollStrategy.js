@@ -356,6 +356,10 @@ enyo.kind({
 			this.scrollTop = this.scrollVertical ?
 				this.calculateDragDistance(this.getScrollTop(), (-1*(e.pageY-this.prevY)), this.topBoundary, this.bottomBoundary) :
 				this.getScrollTop();
+
+			if (this.maxScrollTop !== undefined) {
+				this.scrollTop = Math.max(this.scrollTop, this.maxScrollTop);
+			}
 			// apply new scroll values
 			this.effectScroll();
 			this.scroll();
