@@ -36,7 +36,7 @@ enyo.mixin(enyo.dispatcher, {
 		this.captures.push(info);
 		this.setCaptureInfo(info);
 	},
-	//* Release the last captured event
+	//* Remove the specified target from the capture list
 	release: function(inTarget) {
 		for (var i = this.captures.length - 1; i >= 0; i--) {
 			if (this.captures[i].target === inTarget) {
