@@ -138,6 +138,9 @@ enyo.kind({
         event.current = current;
         event.min = min;
         event.max = max;
+        for (var i = 0; i < this.progressHandlers.length; i++) {
+            enyo.call(this.context || this, this.progressHandlers[i], [this, event]);
+        }
     },
 	//* Starts the async activity. Overridden in subkinds.
 	go: function(inValue) {
