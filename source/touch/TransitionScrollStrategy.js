@@ -34,7 +34,7 @@ enyo.kind({
 		{name: "hthumb", kind: "ScrollThumb", axis: "h", showing: false}
 	],
 	//* Scalar applied to 'flick' event velocity
-	kFlickScalar: 600,
+	kFlickScalar: 1200,
 	//* Top snap boundary, generally 0
 	topBoundary: 0,
 	//* Right snap boundary, generally (viewport width - content width)
@@ -64,9 +64,9 @@ enyo.kind({
 		//* None - used for dragging, etc.
 		none   : "",
 		//* Scroll - basic scrolling behavior
-		scroll : "3.8s cubic-bezier(.19,1,.28,1.0) 0s",
+		scroll : "5s cubic-bezier(.19,1,.28,1.0) 0s",
 		//* Bounce - overscroll bounceback behavior
-		bounce : "0.5s cubic-bezier(0.06,.5,.5,.94) 0s"
+		bounce : "0.7s cubic-bezier(0.06,.5,.5,.94) 0s"
 	},
 
 	//* @public
