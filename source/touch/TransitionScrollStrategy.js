@@ -255,10 +255,13 @@ enyo.kind({
 	down: function(inSender, inEvent) {
 		var _this = this;
 		if (this.isScrolling() && !this.isOverscrolling()) {
-			this.stopTimeout = setTimeout(function() {
+			// this.stopTimeout = setTimeout(function() {
 				_this.stop();
-			}, this.stopTimeoutMS);
+			// }, this.stopTimeoutMS);
+			this.stoppedOnDown = true;
 			return true;
+		} else {
+			this.stoppedOnDown = false;
 		}
 	},
 	// Special synthetic DOM events served up by the Gesture system
