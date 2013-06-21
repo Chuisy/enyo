@@ -35,6 +35,8 @@ enyo.kind({
 	],
 	//* Scalar applied to 'flick' event velocity
 	kFlickScalar: 1200,
+	kOverScrollDragDamping: 3,
+	kOverScrollFlickDamping: 0.995,
 	//* Top snap boundary, generally 0
 	topBoundary: 0,
 	//* Right snap boundary, generally (viewport width - content width)
@@ -383,7 +385,7 @@ enyo.kind({
 	//* Provides resistance against dragging into overscroll
 	overscrollDragDamping: function(currentPosition, newPosition, delta, aBoundary, bBoundary) {
 		if(newPosition < aBoundary || newPosition*-1 < bBoundary) {
-			delta /= 2;
+			delta /= this.kOverScrollDragDamping;
 			newPosition = currentPosition + delta;
 		}
 		return newPosition;
@@ -578,7 +580,7 @@ enyo.kind({
 	// Figure how far into the overscroll region we should go before bouncing back
 	figureBoundary: function(target) {
 		var absTarget = Math.abs(target);
-		var retVal = absTarget - absTarget/Math.pow(absTarget,0.02);
+		var retVal = absTarget - Math.pow(absTarget, this.kOverScrollFlickDamping);
 		retVal = target < 0 ? -1*retVal : retVal;
 		return retVal;
 	},
